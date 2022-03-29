@@ -8,16 +8,12 @@ original="$1"
 temp_1="tmp_1.xml"
 cat $original > $temp_1
 
-for keyword in $(cat "./keywords.txt")
+for keyword in $(cat "./sensitive_field_filter.txt")
 do
-	sed -i 's/\('${keyword}'\)="[^"][^"]*"/\1="XXX"/g' $temp_1
-	#eval "$cmd" > $temp_2
-	#cat $temp_2 > $temp_1
-	#cat $temp | sed 's/\($keyword\)="[^"][^"]*"/\1="XXX"/g' > $temp_2
-	#$temp=$temp_2
-	echo ">> Done processing $keyword"
+	key=$(echo $keyword | cut -d, -f1)
+	value=$(echo $keyword | cut -d, -f2)
+	sed -i 's/\('${key}'\)="[^"][^"]*"/\1="'${value}'"/g' $temp_1
+	echo ">> Done processing $key"
 done
-#cat $temp_2
 
 
-#cat /home/delopez/Code/data/emitidas/0000101D-C2F5-4C67-914C-C00B75ED8A35.xml | sed 's/\(SelloSAT\)="[^"][^"]*"/\1="XXX"/'
