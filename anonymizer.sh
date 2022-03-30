@@ -13,7 +13,10 @@ do
 	key=$(echo $keyword | cut -d, -f1)
 	value=$(echo $keyword | cut -d, -f2)
 	sed -i 's/\('${key}'\)="[^"][^"]*"/\1="'${value}'"/g' $temp_1
-	echo ">> Done processing $key"
 done
+
+echo "" >> $temp_1
+cat $temp_1
+rm $temp_1
 
 
